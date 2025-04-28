@@ -1,0 +1,11 @@
+{
+    "app_key": "your_app_key_here",
+    "app_id": "your_app_id_here",
+    "secret_key": "your_secret_key_here",
+    "sign_key": "your_sign_key_here",
+    "scope": "basic,netdisk",
+    "api_base_url": "https://pan.baidu.com/rest/2.0",
+    "oauth_url": "https://openapi.baidu.com/oauth/2.0",
+    "redirect_uri": "oob",
+    "device_name": "度盘读天下"
+}
