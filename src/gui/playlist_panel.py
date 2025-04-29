@@ -215,7 +215,9 @@ class PlaylistPanel(wx.Panel):
             content_panel = main_window.content_panel
             if 0 <= index < len(content_panel.file_data):
                 track = content_panel.file_data[index]
-                # 直接播放文件
+                # 先停止当前播放
+                self.player.stop()
+                # 加载并播放新文件
                 if self.player.load_file(track):
                     self.player.play()
                     # 更新播放器面板显示
