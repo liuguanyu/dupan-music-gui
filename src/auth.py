@@ -266,6 +266,12 @@ class AuthManager:
             print(f"刷新token失败: {e}")
             return False
 
+    def get_access_token(self):
+        """获取access token"""
+        if not self.token_info or not self.token_info.get('access_token'):
+            raise ValueError("未登录，请先登录")
+        return self.token_info['access_token']
+
     def get_user_info(self):
         """获取用户信息"""
         if not self.token_info or not self.token_info.get('access_token'):

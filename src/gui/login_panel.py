@@ -131,10 +131,11 @@ class LoginPanel(wx.Panel):
     def _show_main_window(self):
         """显示主窗口"""
         try:
-            # 关闭登录窗口，显示主窗口
-            self.GetParent().Close()
+            # 先创建并显示主窗口
             from src.gui.main_window import MainWindow
             main_window = MainWindow()
             main_window.Show()
+            # 然后关闭登录窗口
+            wx.CallAfter(self.GetParent().Close)
         except Exception as e:
             wx.MessageBox(f"打开主窗口失败: {str(e)}", "错误", wx.OK | wx.ICON_ERROR)
