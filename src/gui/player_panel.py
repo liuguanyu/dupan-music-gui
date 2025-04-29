@@ -71,19 +71,23 @@ class PlayerPanel(wx.Panel):
         control_sizer = wx.BoxSizer(wx.HORIZONTAL)
         
         # 播放模式按钮
-        self.mode_btn = wx.Button(control_panel, label="列表循环")
+        self.mode_btn = wx.BitmapButton(control_panel, 
+            bitmap=wx.ArtProvider.GetBitmap(wx.ART_REDO, size=(16, 16)))
         control_sizer.Add(self.mode_btn, 0, wx.ALL, 5)
         
         # 上一曲按钮
-        self.prev_btn = wx.Button(control_panel, label="上一曲")
+        self.prev_btn = wx.BitmapButton(control_panel,
+            bitmap=wx.ArtProvider.GetBitmap(wx.ART_GO_BACK, size=(16, 16)))
         control_sizer.Add(self.prev_btn, 0, wx.ALL, 5)
         
         # 播放/暂停按钮
-        self.play_btn = wx.Button(control_panel, label="播放")
+        self.play_btn = wx.BitmapButton(control_panel,
+            bitmap=wx.ArtProvider.GetBitmap(wx.ART_PLAY, size=(16, 16)))
         control_sizer.Add(self.play_btn, 0, wx.ALL, 5)
         
         # 下一曲按钮
-        self.next_btn = wx.Button(control_panel, label="下一曲")
+        self.next_btn = wx.BitmapButton(control_panel,
+            bitmap=wx.ArtProvider.GetBitmap(wx.ART_GO_FORWARD, size=(16, 16)))
         control_sizer.Add(self.next_btn, 0, wx.ALL, 5)
         
         # 音量控制
@@ -153,23 +157,23 @@ class PlayerPanel(wx.Panel):
         if self.player:
             if self.player.is_playing():
                 self.player.pause()
-                self.play_btn.SetLabel("播放")
+                self.play_btn.SetBitmap(wx.ArtProvider.GetBitmap(wx.ART_PLAY, size=(16, 16)))
             else:
                 self.player.play()
-                self.play_btn.SetLabel("暂停")
+                self.play_btn.SetBitmap(wx.ArtProvider.GetBitmap(wx.ART_MEDIA_PAUSE, size=(16, 16)))
             
     def on_change_mode(self, event):
         """切换播放模式"""
         if self.player:
-            current_mode = self.mode_btn.GetLabel()
-            if current_mode == "列表循环":
-                self.mode_btn.SetLabel("单曲循环")
+            current_mode = self.player.get_play_mode()
+            if current_mode == PlayMode.SEQUENCE:
+                self.mode_btn.SetBitmap(wx.ArtProvider.GetBitmap(wx.ART_REFRESH, size=(16, 16)))
                 self.player.set_play_mode(PlayMode.SINGLE)  # 单曲循环
-            elif current_mode == "单曲循环":
-                self.mode_btn.SetLabel("随机播放")
+            elif current_mode == PlayMode.SINGLE:
+                self.mode_btn.SetBitmap(wx.ArtProvider.GetBitmap(wx.ART_SHUFFLE, size=(16, 16)))
                 self.player.set_play_mode(PlayMode.RANDOM)  # 随机播放
             else:
-                self.mode_btn.SetLabel("列表循环")
+                self.mode_btn.SetBitmap(wx.ArtProvider.GetBitmap(wx.ART_REDO, size=(16, 16)))
                 self.player.set_play_mode(PlayMode.SEQUENCE)  # 列表循环
             
     def on_prev_track(self, event):
